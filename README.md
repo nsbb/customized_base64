@@ -44,16 +44,18 @@
 6. 새로운 .bin 파일에 문자열을 쓴 후 종료한다.
 ### Module
 1. 10진수값 x와 n을 받아 x를 n비트 바이너리로 변환하여 리턴하는 함수.
-    def binary(x, n) :
-        bin_nbit = []
-        for i in reversed(range(n)) :   #n-1부터 0까지 1씩 감소
-            if x >= (2**i) :
-                bin_nbit.append(1)
-                x -= 2**i
-            else :
-                bin_nbit.append(0)
 
-        return bin_nbit
+    def binary(x, n) :
+    bin_nbit = []
+    for i in reversed(range(n)) :   #n-1부터 0까지 1씩 감소
+        if x >= (2**i) :
+            bin_nbit.append(1)
+            x -= 2**i
+        else :
+            bin_nbit.append(0)
+
+    return bin_nbit
+
 n-1부터 0까지 1씩 감소하며 반복문을 돈다. 
 10진수 값이 2의 n-1승 이상이면 해당 비트 값을 ‘1’로 세팅하고 2의 n-1값을 빼준다.
 그 보다 작으면 ‘0’으로 세팅 한다.
@@ -88,8 +90,7 @@ x가 97~122 (‘a~z’) 이면 x에서 97를 뺀 값 (c_base64 : ‘0~25’) 을
 x가 43 (‘+’) 이면 62를 리턴.
 x가 47 (‘/’) 이면 63을 리턴.
 
-|Mapping table|
-|---|
+### Mapping table
 |Char|ASCII|Adding value|Customized-base64|
 |---|
 |0~9|48~57|±4|52~61|
