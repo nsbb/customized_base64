@@ -1,19 +1,21 @@
 # customized_base64
-2018.08.15 \n
+2018.08.15_
+
+
+
+
 (주)스마트엠투엠
 온라인코딩테스트
 김희수
 
 # Introduction
 **c_base64_encoder** : .bin 파일명을 매개변수로 받아 파일 안에 있는 평문을 Customized-base64 테이블에 따라 암호화 한 후 다른 .bin 파일에 문자열로 저장하는 프로그램. Python3.6 으로 코딩함.
-\n
 **c_base64_decoder** : .bin 파일명을 매개변수로 받아 파일 안에 있는 암호문을 Customized-base64 테이블에 따라 복호화 한 후 다른 .bin 파일에 문자열로 저장하는 프로그램. Python3.6 으로 코딩함.
 
 # Goal
 ‘utf-8’로 인코딩된 평문을 바이너리값으로 변환하면 맨 앞자리는 0이고 나머지 7비트의 값이 0또는 1인 8자리 바이너리 값을 얻게 된다. 이 8비트 바이너리 값을 6비트로 변형한 후, 변환된 6비트 바이너리 값(2진수)를 10진수로 계산하여 Customized-base64의 테이블에 있는 값으로 변환하여 출력하는것이 문제.
 
 # Customized-base64-table
-
 |6-bits value|original-base64|customized-base64|
 |---|---|---|
 |0~25|A~Z|a~z|
