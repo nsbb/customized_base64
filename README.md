@@ -159,37 +159,67 @@ x가 47 (‘/’) 이면 63을 리턴.
 # Results
 ### ‘utf-8’ 로 인코딩하여 저장한 .bin 파일
 인코딩 디코딩 모두 제대로 동작한다.
-> ./c_base64_encoder hi.bin
-> 인코딩 완료!
+> ./c_base64_encoder hi.bin  
+> 인코딩 완료!  
 > c_base64_encoded.bin 파일생성 완료!  
-
-> ./c_base64_decoder c_base64_encoded.bin
+  
+> ./c_base64_decoder c_base64_encoded.bin  
 > 디코딩 완료!  
 > c_base64_decoded.bin 파일생성 완료!  
 
-```
-hi.bin
-a813Valskd hello !@#$%1
-```
+> hi.bin  
+> a813Valskd hello !@#$%1  
+  
 > c_base64_encoded.bin  
-> ytGXm1zHBhnRzcb0zwXSBYaHqcmKjte=
-```
-```
-c_base64_decoded.bin
-a813Valskd hello !@#$%1
-```
+> ytGXm1zHBhnRzcb0zwXSBYaHqcmKjte=  
+
+> c_base64_decoded.bin  
+> a813Valskd hello !@#$%1  
+
 ### ‘hexadecimal’ 로 인코딩하여 저장한 .bin 파일
 7비트가 넘어가는 값은 암호화는 잘 되지만, 복호화는 제대로 되지 않는다. 파이썬에서 int값을 문자열로 변경 할 때 숫자 값과 인코더 종류를 인수로 넣어주면 테이블에 따라서 변경해주는데 ‘ASCII’ 는 1바이트에서 7비트만 사용하므로 8비트 이상의 값은 인코딩자체가 불가능하다. ‘utf-8’ 는 인코딩은 되지만 8비트 이상의 값은 특수한 규칙에 따르게 된다. (유니코드 코드명 U+0079 다음이 U+0080인데, 16진수 코드 값을 보면 0x79 다음이 0x80이 아니라 0xc2 0x80이 되어버려 1바이트가 아닌 2바이트가 된다. 10진수 코드 127 이후 부터는 2바이트로 표현. 아스키코드와의 호환성 때문.) 그래서 7비트가 넘는 값을 문자열로 변경하면 무조건 ‘utf-8’ 로 인코딩이 되고, 결과값이 달라져서 원래의 평문과는 값이 달라진다.
+> ./c_base64_encoder 0420c4.bin  
+> 인코딩 완료!  
+> c_base64_encoded.bin 파일생성 완료!  
+  
+> ./c_base64_decoder c_base64_encoded.bin  
+> 디코딩 완료!  
+> c_base64_decoded.bin 파일생성 완료!  
 
-인코딩은 잘 되지만 디코딩을 하면 복호화된 값과 평문의 값이 다르다.
+> 0420c4.bin  
+> 04 20 C4  
 
-복호화된 값을 int, str, hex형으로 비교해본 모습. 16진수값 ‘c4’ 가 10진수 값은 일치하나 ‘utf-8’로 인코딩하여 문자열로 저장하는 과정에서 16진수의 값이 변한다.
+> c_base64_encoded.bin  
+> 62 63 64 65 || bcde  
 
-127은 0x7f이지만 128은 0x80이 아닌 0xc2 0x80이 된다.
+> c_base64_decoded.bin  
+> 04 20 C3 84  
+인코딩은 잘 되지만 디코딩을 하면 복호화된 값과 평문의 값이 다르다.  
 
+> 4   |   |   0x04  
+> 32  |   |   0x20  
+> 196 | Ä | 0xc3 0x84  
+  
+복호화된 값을 int, str, hex형으로 비교해본 모습. 16진수값 ‘c4’ 가 10진수 값은 일치하나 ‘utf-8’로 인코딩하여 문자열로 저장하는 과정에서 16진수의 값이 변한다.  
+
+> In  : bytes(chr(127), 'utf-8')  
+> Out : 0x7f  
+> In  : bytes(chr(127), 'utf-8')  
+> Out : 0xc2 0x80  
+> In  : bytes(chr(127), 'utf-8')  
+> Out : 0xc3 0x84  
+
+|Unicode code point|hex|
+|---|---|
+|U+007E|0x7e|
+|U+007F|0x7f|
+|U+0080|0xc2 0x80|
+|U+0081|0xc2 0x81|
+|U+00C4|0xc3 0x84|
+127은 0x7f이지만 128은 0x80이 아닌 0xc2 0x80이 된다.  
  
 # References
-https://github.com/smartm2m/customized-base64
-https://en.wikipedia.org/wiki/Base64
-https://en.wikipedia.org/wiki/ASCII
-https://www.utf8-chartable.de/unicode-utf8-table.pl
+<https://github.com/smartm2m/customized-base64>
+<https://en.wikipedia.org/wiki/Base64>
+<https://en.wikipedia.org/wiki/ASCII>
+<https://www.utf8-chartable.de/unicode-utf8-table.pl>
