@@ -2,7 +2,7 @@
 import sys
 from c_base64_module import binary, change_bit, table_64_d
 
-#.bin파일을 바이너리모드로 읽음e
+#.bin파일을 바이너리모드로 읽음
 input_file = sys.argv[1]
 input_dec = open(input_file,'rb').read()
 
