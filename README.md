@@ -164,21 +164,20 @@ x가 47 (‘/’) 이면 63을 리턴.
 > c_base64_encoded.bin 파일생성 완료!  
 
 > ./c_base64_decoder c_base64_encoded.bin
-> 디코딩 완료!
+> 디코딩 완료!  
 > c_base64_decoded.bin 파일생성 완료!  
 
-'''
+```
 hi.bin
 a813Valskd hello !@#$%1
-'''
-'''
-c_base64_encoded.bin
-ytGXm1zHBhnRzcb0zwXSBYaHqcmKjte=
-'''
-'''
+```
+> c_base64_encoded.bin  
+> ytGXm1zHBhnRzcb0zwXSBYaHqcmKjte=
+```
+```
 c_base64_decoded.bin
 a813Valskd hello !@#$%1
-'''
+```
 ### ‘hexadecimal’ 로 인코딩하여 저장한 .bin 파일
 7비트가 넘어가는 값은 암호화는 잘 되지만, 복호화는 제대로 되지 않는다. 파이썬에서 int값을 문자열로 변경 할 때 숫자 값과 인코더 종류를 인수로 넣어주면 테이블에 따라서 변경해주는데 ‘ASCII’ 는 1바이트에서 7비트만 사용하므로 8비트 이상의 값은 인코딩자체가 불가능하다. ‘utf-8’ 는 인코딩은 되지만 8비트 이상의 값은 특수한 규칙에 따르게 된다. (유니코드 코드명 U+0079 다음이 U+0080인데, 16진수 코드 값을 보면 0x79 다음이 0x80이 아니라 0xc2 0x80이 되어버려 1바이트가 아닌 2바이트가 된다. 10진수 코드 127 이후 부터는 2바이트로 표현. 아스키코드와의 호환성 때문.) 그래서 7비트가 넘는 값을 문자열로 변경하면 무조건 ‘utf-8’ 로 인코딩이 되고, 결과값이 달라져서 원래의 평문과는 값이 달라진다.
 
