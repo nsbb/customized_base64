@@ -57,9 +57,9 @@ def table_64_e(x) :
     elif x in range(52,62) :   # 52 <= x <= 61
         return x-4
     elif x == 62 :
-        return x-19
+        return 43
     elif x == 63 :
-        return x-16
+        return 47
 
 
 #아스키코드를 베이스64코드로 변환
