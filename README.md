@@ -45,7 +45,7 @@
 ### Module
 1. 10진수값 x와 n을 받아 x를 n비트 바이너리로 변환하여 리턴하는 함수.
 ```python
-    def binary(x, n) :
+def binary(x, n) :
     bin_nbit = []
     for i in reversed(range(n)) :   #n-1부터 0까지 1씩 감소
         if x >= (2**i) :
@@ -53,28 +53,72 @@
             x -= 2**i
         else :
             bin_nbit.append(0)
-    return bin_nbit
+        return bin_nbit
 ```
 n-1부터 0까지 1씩 감소하며 반복문을 돈다. 
 10진수 값이 2의 n-1승 이상이면 해당 비트 값을 ‘1’로 세팅하고 2의 n-1값을 빼준다.
 그 보다 작으면 ‘0’으로 세팅 한다.
 
 2. 2진수 리스트 x와 10진수 값 n, LSB를 받아 x를 n비트 바이너리값으로 길이 변환 및 LSB 비트를 추가하여 리턴하는 함수.
+```python
+def change_bit(x, n, LSB) :
+    bin_nbit = []
+    temp = []
+    count = 0
 
+    for i in x :
+        temp.append(i)
+        count += 1
+        if count % n == 0 :
+            bin_nbit.append(temp)
+            temp = []
+
+    if LSB :    #LSB값이 0이 아니면
+        for i in range(LSB) :
+            temp.append(0)
+        bin_nbit.append(temp)
+
+    return bin_nbit
+ ````
 카운트 변수를 이용하여 원하는 비트 수 n으로 길이를 변환 후 바이너리 리스트를 리턴한다.
 If문에서 변수의 값이 0일때만 ‘False’이므로 0이 아니면 항상 ‘True’ 이다.
 LSB는 인코더 프로그램에서만 입력해주고 디코더 프로그램은 항상 0만 보내준다.
 
-
 3. 인코더 프로그램에서 평문 데이터의 비트의 총 길이를 받아서 패딩값과 LSB값을 리턴하는 함수.
-     
+```python
+def check_length(x) :
+    if x % 24 == 0 :
+        padding = 0
+        LSB = 0
+        return padding, LSB
+    elif x % 24 == 8 :
+        padding = 2
+        LSB = 4
+        return padding, LSB
+    elif x % 24 == 16 :
+        padding = 1
+        LSB = 2
+        return padding, LSB
+```
 평문 데이터를 8비트 바이너리 데이터로 변환하면 총 비트 수는 8의 배수가 된다. 
 3바이트로 나눴을 때 나눠 떨어지면 패딩과 LSB가 발생하지 않으므로 둘 다 0을 리턴한다.
 1바이트가 마지막에 남으면 16비트를 0으로 채워줘야 한다. 6비트 2블록을 패딩값, 나머지 4비트를 LSB값으로 리턴한다.
 2바이트가 마지막에 남으면 8비트를 0으로 채워줘야 한다. 6비트 1블록을 패딩값, 나머지 2비트를 LSB값으로 리턴한다.
 
 4. Customized-base64 코드값 10진수 x를 받아 아스키 코드값으로 변환하여 리턴하는 함수.
-     
+```python
+def table_64_e(x) :
+    if x in range(26) :        # 0 <= x <= 25
+        return x+97
+    elif x in range(26,52) :   # 26 <= x <= 51
+        return x+39
+    elif x in range(52,62) :   # 52 <= x <= 61
+        return x-4
+    elif x == 62 :
+        return 43
+    elif x == 63 :
+        return 47
+```
 x가 0~25 (‘a~z’) 이면 x에 97을 더한 값  (ASCII : ‘97~122’) 을 리턴.
 x가 26~51 (‘A~Z’) 이면 x에 39를 더한 값 (ASCII : ‘65~90’) 을 리턴.
 x가 52~61 (‘0~9’) 이면 x에서 4를 뺀 값 (ASCII : ‘48~57’) 을 리턴.
@@ -82,7 +126,19 @@ x가 62 (‘+’) 이면 43을 리턴.
 x가 63 (‘/’) 이면 47을 리턴.
 
 5. ASCII 코드값 10진수 x를 받아 Customized-base64 코드값으로 변환하여 리턴하는 함수
-     
+```python
+def table_64_d(x) : 
+    if x in range(48,58) :     #'0~9'
+        return x+4
+    elif x in range(65,91) :   #'A~Z'
+        return x-39
+    elif x in range(97,123) :  #'a~z'
+        return x-97
+    elif x == 43 :             #'+'
+        return 62
+    elif x == 47 :             #'/'
+        return 63
+```
 x가 48~57 (‘0~9’) 이면 x에 4를 더한 값 (c_base64 : ‘52~61’) 을 리턴.
 x가 65~90 (‘A~Z’) 이면 x에서 39를 뺀 값 (c_base64 : ‘26~51’) 을 리턴.
 x가 97~122 (‘a~z’) 이면 x에서 97를 뺀 값 (c_base64 : ‘0~25’) 을 리턴.
@@ -90,7 +146,7 @@ x가 43 (‘+’) 이면 62를 리턴.
 x가 47 (‘/’) 이면 63을 리턴.
 
 |Mapping table|
-|---|
+|---|---|---|---|
 |Char|ASCII|Adding value|Customized-base64|
 |---|---|---|---|
 |0~9|48~57|±4|52~61|
