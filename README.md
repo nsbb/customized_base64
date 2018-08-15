@@ -224,7 +224,7 @@ x가 47 (‘/’) 이면 63을 리턴.
 127은 0x7f이지만 128은 0x80이 아닌 0xc2 0x80이 된다.  
   
 # References
-[smartm2m/customized-base64](https://github.com/smartm2m/customized-base64)  
-[Base64 - Wikipedia](https://en.wikipedia.org/wiki/Base64)  
-[ASCII - Wikipedia](https://en.wikipedia.org/wiki/ASCII)  
-[Unicode/UTF-8 character table](https://www.utf8-chartable.de/unicode-utf8-table.pl)  
+* [smartm2m/customized-base64](https://github.com/smartm2m/customized-base64)  
+* [Base64 - Wikipedia](https://en.wikipedia.org/wiki/Base64)  
+* [ASCII - Wikipedia](https://en.wikipedia.org/wiki/ASCII)  
+* [Unicode/UTF-8 character table](https://www.utf8-chartable.de/unicode-utf8-table.pl)  
