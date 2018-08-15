@@ -13,7 +13,7 @@
 
 # Customized-base64-table
 |6-bits value|original-base64|customized-base64|
-|---|---|---|
+|:-:|:-:|:-:|
 |0~25|A~Z|a~z|
 |26~51|a~z|A~Z|
 |52~61|0~9|0~9|
@@ -148,7 +148,7 @@ x가 47 (‘/’) 이면 63을 리턴.
 
 #### Mapping table
 |Char|ASCII|Adding value|Customized-base64|
-|---|---|---|---|
+|:-:|:-:|:-:|:-:|
 |0~9|48~57|±4|52~61|
 |a~z|97~122|±97|0~25|
 |A~Z|65~90|±39|26~51|
