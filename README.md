@@ -1,7 +1,5 @@
 # customized_base64
 2018.08.15  
-(주)스마트엠투엠  
-온라인코딩테스트  
 김희수
 
 # Introduction
